@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Cafe - Menu</title>
+  <meta name='description' content='Explore the menu at Niyantri Cafe in Hyderabad. Coffees, teas, pastries and more.'>
+  <!-- FONTS placeholder: 'Playfair Display', 'Inter' -->
+  <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script>
+    tailwind.config = { theme: { fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter','ui-sans-serif','system-ui'] } } }
+  </script>
+</head>
+<body class='opacity-0 transition-opacity duration-1000 ease-in-out'>
+  <header class='w-full fixed top-0 left-0 bg-white/70 backdrop-blur-lg shadow-lg z-50'>
+    <nav class='max-w-7xl mx-auto px-4 py-4 flex items-center justify-between'>
+      <a href='index.html' class='flex items-center gap-2'>
+        <span class='w-8 h-8 inline-block bg-amber-500 rounded-full flex items-center justify-center text-white font-bold'>N</span>
+        <span class='text-xl font-semibold text-slate-800'>Niyantri Cafe</span>
+      </a>
+      <div class='hidden md:flex space-x-6 text-slate-700'>
+        <a href='index.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Home</a>
+        <a href='menu.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Menu</a>
+        <a href='cart.html' class='flex items-center'>Cart <span class='ml-1 inline-flex items-center justify-center w-5 h-5 bg-amber-500 text-white rounded-full text-xs' id='cart-count'>0</span></a>
+        <a href='about.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>About</a>
+        <a href='contact.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Contact</a>
+      </div>
+      <button id='menu-btn' class='md:hidden p-2 rounded bg-slate-100' aria-label='Open menu'>
+        <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+          <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'/>
+        </svg>
+      </button>
+    </nav>
+    <div id='mobile-menu' class='md:hidden hidden px-4 pb-4'>
+      <a href='index.html' class='block py-2'>Home</a>
+      <a href='menu.html' class='block py-2'>Menu</a>
+      <a href='cart.html' class='block py-2'>Cart</a>
+      <a href='about.html' class='block py-2'>About</a>
+      <a href='contact.html' class='block py-2'>Contact</a>
+    </div>
+  </header>
+  <main class='w-full'>
+    <section class='py-16 px-6'>
+      <h1 class='font-serif text-4xl md:text-5xl text-slate-800 text-center mb-6'>Our Menu</h1>
+      <p class='text-center text-slate-600 mb-8'>Coffee, tea, pastries and more, crafted daily in Hyderabad.</p>
+      <div class='grid grid-cols-1 md:grid-cols-3 gap-6'>
+        <!-- Menu items -->
+        <div class='menu-item p-4 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-on-scroll'>
+          <h3 class='font-semibold text-slate-800'>Cappuccino</h3>
+          <p class='text-sm text-slate-600'>Creamy texture with rich espresso and light foam.</p>
+          <div class='mt-2 flex items-center justify-between'>
+            <span class='font-semibold text-slate-800'>$4.50</span>
+            <button class='px-3 py-2 rounded bg-amber-500 text-white hover:bg-amber-600 transition-all duration-300' onclick='addToCart("Cappuccino", 4.5)'>Add</button>
+          </div>
+        </div>
+        <div class='menu-item p-4 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-on-scroll'>
+          <h3 class='font-semibold text-slate-800'>Espresso</h3>
+          <p class='text-sm text-slate-600'>Intense shot with a smooth finish.</p>
+          <div class='mt-2 flex items-center justify-between'>
+            <span class='font-semibold text-slate-800'>$3.50</span>
+            <button class='px-3 py-2 rounded bg-amber-500 text-white hover:bg-amber-600 transition-all duration-300' onclick='addToCart("Espresso", 3.5)'>Add</button>
+          </div>
+        </div>
+        <div class='menu-item p-4 bg-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-on-scroll'>
+          <h3 class='font-semibold text-slate-800'>Latte</h3>
+          <p class='text-sm text-slate-600'>Milk, espresso, and a touch of vanilla.</p>
+          <div class='mt-2 flex items-center justify-between'>
+            <span class='font-semibold text-slate-800'>$4.75</span>
+            <button class='px-3 py-2 rounded bg-amber-500 text-white hover:bg-amber-600 transition-all duration-300' onclick='addToCart("Latte", 4.75)'>Add</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class='bg-slate-900 text-white py-6'>
+    <div class='max-w-7xl mx-auto px-4 text-sm'>
+      <p>&copy; 2025 Niyantri Cafe, Hyderabad. All rights reserved.</p>
+      <p>Location: Hyderabad, Telangana</p>
+    </div>
+  </footer>
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if(btn){ btn.addEventListener('click', () => mobileMenu.classList.toggle('hidden')); }
+
+    // Cart badge
+    function updateCartCount(){
+      const cart = JSON.parse(localStorage.getItem('nyan_cart')||'[]');
+      const el = document.getElementById('cart-count');
+      if(el) el.textContent = cart.length;
+    }
+    function addToCart(name, price){
+      const cart = JSON.parse(localStorage.getItem('nyan_cart')||'[]');
+      cart.push({name, price});
+      localStorage.setItem('nyan_cart', JSON.stringify(cart));
+      updateCartCount();
+      // Simple toast
+      const toast = document.createElement('div');
+      toast.textContent = name + ' added to cart';
+      toast.className = 'fixed bottom-4 right-4 bg-slate-800 text-white px-4 py-2 rounded shadow-md';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 1500);
+    }
+    // Initialize cart count on load
+    window.addEventListener('load', () => {
+      updateCartCount();
+      document.body.classList.remove('opacity-0');
+    });
+
+    // Scroll animations
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('opacity-100'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    animatedElements.forEach(el => {
+      el.classList.add('transition-opacity','duration-1000','ease-in-out','opacity-0');
+      observer.observe(el);
+    });
+  </script>
+  <script>window.addEventListener('load', () => document.body.classList.remove('opacity-0'));</script>
+</body>
+</html>
