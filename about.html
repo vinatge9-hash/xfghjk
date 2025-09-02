@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Cafe - About</title>
+  <meta name='description' content='Learn about Niyantri Cafe in Hyderabad, our story and philosophy.'>
+  <!-- FONTS placeholder: 'Playfair Display', 'Inter' -->
+  <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script>tailwind.config={theme:{fontFamily:{serif:['Playfair Display','serif'],sans:['Inter','ui-sans-serif','system-ui']}}}</script>
+</head>
+<body class='opacity-0 transition-opacity duration-1000 ease-in-out'>
+  <header class='w-full fixed top-0 left-0 bg-white/70 backdrop-blur-lg shadow-lg z-50'>
+    <nav class='max-w-7xl mx-auto px-4 py-4 flex items-center justify-between'>
+      <a href='index.html' class='flex items-center gap-2'>
+        <span class='w-8 h-8 inline-block bg-amber-500 rounded-full flex items-center justify-center text-white font-bold'>N</span>
+        <span class='text-xl font-semibold text-slate-800'>Niyantri Cafe</span>
+      </a>
+      <div class='hidden md:flex space-x-6 text-slate-700'>
+        <a href='index.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Home</a>
+        <a href='menu.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Menu</a>
+        <a href='cart.html' class='flex items-center'>Cart <span class='ml-1 inline-flex items-center justify-center w-5 h-5 bg-amber-500 text-white rounded-full text-xs' id='cart-count'>0</span></a>
+        <a href='about.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>About</a>
+        <a href='contact.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main class='w-full mt-24'>
+    <section class='px-6 py-12'>
+      <div class='max-w-4xl mx-auto text-center'>
+        <h1 class='font-serif text-4xl text-slate-800 mb-3'>Our Story</h1>
+        <p class='text-slate-600'>Niyantri Cafe is a small, family-run coffee house in Hyderabad, dedicated to roasting fresh beans and serving heartwarming pastries with a smile.</p>
+      </div>
+    </section>
+    <section class='px-6 py-8 bg-slate-50'>
+      <div class='max-w-5xl mx-auto grid md:grid-cols-3 gap-6'>
+        <div class='p-4 bg-white rounded-lg shadow-md'>
+          <h3 class='font-semibold mb-2'>Our Values</h3>
+          <p class='text-sm text-slate-600'>Quality, community, and sustainability in every cup.</p>
+        </div>
+        <div class='p-4 bg-white rounded-lg shadow-md'>
+          <h3 class='font-semibold mb-2'>Fresh Roasts</h3>
+          <p class='text-sm text-slate-600'>Small-batch roastery with rotating seasonal blends.</p>
+        </div>
+        <div class='p-4 bg-white rounded-lg shadow-md'>
+          <h3 class='font-semibold mb-2'>Hyderabad Vibe</h3>
+          <p class='text-sm text-slate-600'>A warm space for friends, conversations, and study sessions.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class='bg-slate-900 text-white py-6'>
+    <div class='max-w-7xl mx-auto px-4 text-sm'>
+      <p>&copy; 2025 Niyantri Cafe, Hyderabad. All rights reserved.</p>
+      <p>Location: Hyderabad, Telangana</p>
+    </div>
+  </footer>
+  <script>
+    // Mobile menu toggle (reuse if needed)
+    window.addEventListener('load', () => document.body.classList.remove('opacity-0'));
+  </script>
+</body>
+</html>
