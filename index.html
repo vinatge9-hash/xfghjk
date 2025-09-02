@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Cafe - Home</title>
+  <meta name='description' content='Niyantri Cafe, a cozy Hyderabad coffee shop offering premium brews and handmade pastries.'>
+  <!-- FONTS placeholder: 'Playfair Display', 'Inter' -->
+  <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+          serif: ['Playfair Display', 'serif'],
+          sans: ['Inter', 'ui-sans-serif', 'system-ui']
+        }
+      }
+    }
+  </script>
+</head>
+<body class="opacity-0 transition-opacity duration-1000 ease-in-out">
+  <header class='w-full fixed top-0 left-0 bg-white/70 backdrop-blur-lg shadow-lg z-50'>
+    <nav class='max-w-7xl mx-auto px-4 py-4 flex items-center justify-between'>
+      <a href='index.html' class='flex items-center gap-2'>
+        <span aria-label='Niyantri Cafe logo' class='w-8 h-8 inline-block bg-amber-500 rounded-full flex items-center justify-center text-white font-bold'>N</span>
+        <span class='text-xl font-semibold text-slate-800'>Niyantri Cafe</span>
+      </a>
+      <div class='hidden md:flex space-x-6 text-slate-700'>
+        <a href='index.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Home</a>
+        <a href='menu.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Menu</a>
+        <a href='cart.html' class='flex items-center'>Cart <span class='ml-1 inline-flex items-center justify-center w-5 h-5 bg-amber-500 text-white rounded-full text-xs' id='cart-count'>0</span></a>
+        <a href='about.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>About</a>
+        <a href='contact.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Contact</a>
+      </div>
+      <button id='menu-btn' class='md:hidden p-2 rounded bg-slate-100' aria-label='Open menu'>
+        <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+          <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'/>
+        </svg>
+      </button>
+    </nav>
+    <div id='mobile-menu' class='md:hidden hidden px-4 pb-4'>
+      <a href='index.html' class='block py-2'>Home</a>
+      <a href='menu.html' class='block py-2'>Menu</a>
+      <a href='cart.html' class='block py-2'>Cart</a>
+      <a href='about.html' class='block py-2'>About</a>
+      <a href='contact.html' class='block py-2'>Contact</a>
+    </div>
+  </header>
+  <main class='w-full'>
+    <!-- Hero -->
+    <section class='relative h-screen w-full'>
+      <img src="https://pixabay.com/get/g1dccb55f803aa2e9475883fe66fbba618446f70210924683c67c9e9ec14d925ba0fd1e3878df98e76a58e615c5bea5338471156a7519b63c8ca18eb08a922c8a_640.jpg" alt='Cozy coffee shop interior' class='w-full h-full object-cover'>
+      <div class='absolute inset-0 bg-black/40'></div>
+      <div class='absolute inset-0 flex items-center justify-center'>
+        <div class='text-center text-white px-4'>
+          <h1 class='font-serif text-5xl md:text-6xl mb-4'>Niyantri Cafe</h1>
+          <p class='text-lg md:text-xl mb-6'>Hyderabad's cozy corner for crafted coffee and pastries</p>
+          <a href='menu.html' class='inline-block px-8 py-3 rounded-full font-semibold bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300'>Explore Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About teaser -->
+    <section class='py-16 px-6 animate-on-scroll opacity-0'>
+      <div class='max-w-5xl mx-auto text-center'>
+        <h2 class='font-serif text-3xl md:text-4xl text-slate-800 mb-4'>A warm cup and a welcoming space</h2>
+        <p class='text-slate-600'>Nestled in the heart of Hyderabad, Niyantri Cafe serves fresh brews and delightful pastries in a relaxed setting.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class='py-12 px-6 bg-slate-50 animate-on-scroll opacity-0'>
+      <div class='max-w-4xl mx-auto text-center'>
+        <h2 class='text-2xl font-semibold text-slate-800 mb-6'>What patrons say</h2>
+        <div class='grid gap-6 md:grid-cols-3'>
+          <blockquote class='p-5 bg-white rounded-lg shadow-md'>“Cozy vibes and the best cappuccino in town.”</blockquote>
+          <blockquote class='p-5 bg-white rounded-lg shadow-md'>“Amazing pastries and friendly staff.”</blockquote>
+          <blockquote class='p-5 bg-white rounded-lg shadow-md'>“A go-to spot for weekend catch-ups.”</blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class='bg-slate-900 text-white py-6'>
+    <div class='max-w-7xl mx-auto px-4 text-sm'>
+      <p>&copy; 2025 Niyantri Cafe, Hyderabad. All rights reserved.</p>
+      <p>Location: Shop 12, Secunderabad, Hyderabad, Telangana 500003</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if(btn){
+      btn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+
+    // On-load fade-in
+    window.addEventListener('load', () => document.body.classList.remove('opacity-0'));
+
+    // Scroll animations
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('opacity-100');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    animatedElements.forEach(el => {
+      el.classList.add('transition-opacity', 'duration-1000', 'ease-in-out', 'opacity-0');
+      observer.observe(el);
+    });
+  </script>
+  <script>window.addEventListener('load', () => document.body.classList.remove('opacity-0'));</script>
+</body>
+</html>
