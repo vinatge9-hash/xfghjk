@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Niyantri Cafe - Cart</title>
+  <meta name='description' content='Your cart at Niyantri Cafe. Review items and checkout with a Mock PayPal integration.'>
+  <!-- FONTS placeholder: 'Playfair Display', 'Inter' -->
+  <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600;700&display=swap' rel='stylesheet'>
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script>
+    tailwind.config = { theme: { fontFamily: { serif: ['Playfair Display','serif'], sans: ['Inter','ui-sans-serif','system-ui'] } } }
+  </script>
+</head>
+<body class='opacity-0 transition-opacity duration-1000 ease-in-out'>
+  <header class='w-full fixed top-0 left-0 bg-white/70 backdrop-blur-lg shadow-lg z-50'>
+    <nav class='max-w-7xl mx-auto px-4 py-4 flex items-center justify-between'>
+      <a href='index.html' class='flex items-center gap-2'>
+        <span class='w-8 h-8 inline-block bg-amber-500 rounded-full flex items-center justify-center text-white font-bold'>N</span>
+        <span class='text-xl font-semibold text-slate-800'>Niyantri Cafe</span>
+      </a>
+      <div class='hidden md:flex space-x-6 text-slate-700'>
+        <a href='index.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Home</a>
+        <a href='menu.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Menu</a>
+        <a href='cart.html' class='flex items-center'>Cart <span class='ml-1 inline-flex items-center justify-center w-5 h-5 bg-amber-500 text-white rounded-full text-xs' id='cart-count'>0</span></a>
+        <a href='about.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>About</a>
+        <a href='contact.html' class='hover:scale-105 transition-all duration-300 ease-in-out'>Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main class='w-full mt-28'>
+    <section class='px-6 py-6'>
+      <h1 class='font-serif text-3xl text-slate-800 text-center mb-4'>Your Cart</h1>
+      <p class='text-center text-slate-600 mb-6'>Items from your delicious visit to Niyantri Cafe.</p>
+      <div id='cart-items' class='grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto'>
+        <!-- items will be rendered here by JS -->
+      </div>
+      <div class='max-w-4xl mx-auto mt-6 text-right'>
+        <span class='text-lg font-semibold' id='cart-total'>Total: $0.00</span>
+      </div>
+      <div class='max-w-4xl mx-auto mt-6 flex items-center justify-end'>
+        <button id='checkout-btn' class='px-6 py-3 rounded bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md hover:shadow-lg transition-all duration-300'>Checkout with PayPal (Mock)</button>
+      </div>
+      <div id='checkout-status' class='max-w-4xl mx-auto mt-4 text-center'></div>
+    </section>
+  </main>
+  <footer class='bg-slate-900 text-white py-6'>
+    <div class='max-w-7xl mx-auto px-4 text-sm'>
+      <p>&copy; 2025 Niyantri Cafe, Hyderabad. All rights reserved.</p>
+      <p>Location: Hyderabad, Telangana</p>
+    </div>
+  </footer>
+  <script>
+    // Initialize cart count
+    function updateCartCount(){
+      const cart = JSON.parse(localStorage.getItem('nyan_cart')||'[]');
+      const el = document.getElementById('cart-count');
+      if(el) el.textContent = cart.length;
+    }
+    function renderCart(){
+      const cart = JSON.parse(localStorage.getItem('nyan_cart')||'[]');
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+      let total = 0;
+      if(cart.length === 0){ container.innerHTML = '<p class="text-slate-600 text-center col-span-2">Your cart is empty. Add items from the Menu.</p>'; }
+      cart.forEach((it, idx) => {
+        total += parseFloat(it.price);
+        const div = document.createElement('div');
+        div.className = 'p-4 bg-white rounded-lg shadow-md flex items-center justify-between';
+        div.innerHTML = `<span>${idx+1}. ${it.name}</span><span>$${parseFloat(it.price).toFixed(2)}</span>`;
+        container.appendChild(div);
+      });
+      const totalEl = document.getElementById('cart-total');
+      if(totalEl) totalEl.textContent = 'Total: $' + total.toFixed(2);
+    }
+    // Mock PayPal API (simulated)
+    function mockPaypalCheckout(total, items){
+      return new Promise((resolve) => {
+        // simulate network latency
+        setTimeout(() => resolve({status:'success', id:'MOCK-PAY-' + Date.now(), total, items}), 1500);
+      });
+    }
+    function performCheckout(){
+      const cart = JSON.parse(localStorage.getItem('nyan_cart')||'[]');
+      if(cart.length === 0){ alert('Your cart is empty. Add items first.'); return; }
+      const statusDiv = document.getElementById('checkout-status');
+      statusDiv.innerHTML = '<p class="text-slate-700">Processing payment via Mock PayPal...</p>';
+      mockPaypalCheckout(cart.reduce((a, b)=> a + parseFloat(b.price), 0), cart).then(res =>{
+        if(res.status==='success'){
+          localStorage.removeItem('nyan_cart');
+          updateCartCount();
+          renderCart();
+          statusDiv.innerHTML = '<p class="text-green-600 font-semibold">Payment successful! Transaction ID: ' + res.id + '</p>';
+        } else {
+          statusDiv.innerHTML = '<p class="text-red-600 font-semibold">Payment failed. Please try again.</p>';
+        }
+      });
+    }
+    // Initialize
+    window.addEventListener('load', () => {
+      updateCartCount();
+      renderCart();
+      document.body.classList.remove('opacity-0');
+      document.getElementById('checkout-btn').addEventListener('click', performCheckout);
+    });
+  </script>
+  <script>window.addEventListener('load', () => document.body.classList.remove('opacity-0'));</script>
+</body>
+</html>
